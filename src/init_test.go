@@ -96,6 +96,7 @@ func TestStrandToString(t *testing.T) {
 }
 
 func TestDnaToRna(t *testing.T) {
+
 	strand := nucleotide.DnaStrandFromString("GATGGAACTTGACTACGTAAATT")
 
 	actual := nucleotide.StrandToString(nucleotide.RnaStrandFromDnaStrand(strand))

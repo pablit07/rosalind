@@ -6,10 +6,8 @@ import (
 
 type nucleotide string
 
-func make_nucleotide(char string) nucleotide {
-	n := nucleotide(char)
-	m[char] = n
-	return n
+func make_nucleotide(n nucleotide) {
+	m[string(n)] = n
 }
 
 type DnaStrand []nucleotide
@@ -17,13 +15,21 @@ type RnaStrand []nucleotide
 
 var m map[string]nucleotide = make(map[string]nucleotide)
 
-var (
-	A nucleotide = make_nucleotide("A")
-	C nucleotide = make_nucleotide("C")
-	G nucleotide = make_nucleotide("G")
-	T nucleotide = make_nucleotide("T")
-	U nucleotide = make_nucleotide("U")
+const (
+	A nucleotide = "A"
+	C nucleotide = "C"
+	G nucleotide = "G"
+	T nucleotide = "T"
+	U nucleotide = "U"
 )
+
+func init() {
+	make_nucleotide(A)
+	make_nucleotide(C)
+	make_nucleotide(G)
+	make_nucleotide(T)
+	make_nucleotide(U)
+}
 
 func NewDnaStrand(nts ...nucleotide) DnaStrand {
 	return nts
@@ -62,4 +68,36 @@ func StrandToString(strand []nucleotide) string {
 		strandChars = append(strandChars, string(el))
 	}
 	return strings.Join(strandChars, "")
+}
+
+func GetCompliment(n nucleotide) (result nucleotide, fail bool) {
+
+	switch n {
+	case A:
+		result = T
+	case T:
+		result = A
+	case G:
+		result = C
+	case C:
+		result = G
+	default:
+		fail = true
+	}
+
+	return
+}
+
+func GetComplimentFromStrand(strand DnaStrand) (result DnaStrand) {
+
+	for _, n := range strand {
+		compliment, _ := GetCompliment(n)
+		result = append(result, compliment)
+	}
+
+	for i, j := 0, len(result)-1; i < j; i, j = i+1, j-1 {
+		result[i], result[j] = result[j], result[i]
+	}
+
+	return
 }

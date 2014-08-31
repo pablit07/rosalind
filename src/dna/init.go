@@ -1,15 +1,15 @@
 package dna
 
 import (
-	"strings"
+	"nucleotide"
 )
 
 type Dna struct {
-	strand string
+	strand nucleotide.DnaStrand
 }
 
 func Init(dna *Dna, strand string) {
-	dna.strand = strand
+	dna.strand = nucleotide.DnaStrandFromString(strand)
 }
 
 func Count_ACGT(dna Dna) (int, int, int, int) {
@@ -17,5 +17,13 @@ func Count_ACGT(dna Dna) (int, int, int, int) {
 }
 
 func Count(dna Dna, s string) int {
-	return strings.Count(dna.strand, s)
+	count := 0
+
+	for _, el := range dna.strand {
+		if string(el) == s {
+			count++
+		}
+	}
+
+	return count
 }

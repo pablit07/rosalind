@@ -83,3 +83,24 @@ func TestMakeDnaStrand2(t *testing.T) {
 		t.Errorf("Length of strand was not 3, actual=%d", len(strand))
 	}
 }
+
+func TestStrandToString(t *testing.T) {
+	strand := nucleotide.DnaStrandFromString("GATGGAACTTGACTACGTAAATT")
+
+	actual := nucleotide.StrandToString(strand)
+
+	if actual != "GATGGAACTTGACTACGTAAATT" {
+		t.Errorf("Error, expected %q but was %q", "GATGGAACTTGACTACGTAAATT", actual)
+	}
+
+}
+
+func TestDnaToRna(t *testing.T) {
+	strand := nucleotide.DnaStrandFromString("GATGGAACTTGACTACGTAAATT")
+
+	actual := nucleotide.StrandToString(nucleotide.RnaStrandFromDnaStrand(strand))
+
+	if actual != "GAUGGAACUUGACUACGUAAAUU" {
+		t.Errorf("Error, expected %q but was %q", "GAUGGAACUUGACUACGUAAAUU", actual)
+	}
+}

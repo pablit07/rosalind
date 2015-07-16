@@ -42,7 +42,7 @@ func TestGetCompliment4(t *testing.T) {
 }
 
 func TestGetComplimentFromStrand(t *testing.T) {
-	input, expected := nucleotide.DnaStrandFromString("AAAACCCGGT"), "ACCGGGTTTT"
+	input, expected := nucleotide.DnaStrandFromString("AAAACCCGGT"), "TTTTGGGCCA"
 	actual := nucleotide.StrandToString(
 		nucleotide.GetComplimentFromStrand(input))
 
